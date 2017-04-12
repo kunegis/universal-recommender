@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (Web2C 7.5.7)
+The top-level auxiliary file: recommender-howto.aux
+The style file: acm.bst
+Database file #1: kunegis.bib
+You've used 4 entries,
+            2253 wiz_defined-function locations,
+            548 strings with 4454 characters,
+and the built_in function-call counts, 1594 in all, are:
+= -- 155
+> -- 58
+< -- 0
++ -- 27
+- -- 20
+* -- 99
+:= -- 233
+add.period$ -- 12
+call.type$ -- 4
+change.case$ -- 22
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 76
+empty$ -- 144
+format.name$ -- 20
+if$ -- 356
+int.to.chr$ -- 0
+int.to.str$ -- 4
+missing$ -- 3
+newline$ -- 23
+num.names$ -- 8
+pop$ -- 38
+preamble$ -- 1
+purify$ -- 18
+quote$ -- 0
+skip$ -- 58
+stack$ -- 0
+substring$ -- 103
+swap$ -- 28
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 16
+warning$ -- 0
+while$ -- 17
+width$ -- 5
+write$ -- 42

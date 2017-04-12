@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="core/src/main/java"/>
+	<classpathentry kind="src" path="core/src/test/java"/>
+	<classpathentry kind="src" path="graph/src/main/java"/>
+	<classpathentry kind="src" path="graph/src/test/java"/>
+	<classpathentry kind="src" path="lab/src/main/java"/>
+	<classpathentry kind="src" path="lab/src/test/java"/>
+	<classpathentry kind="src" path="db/src/main/java"/>
+	<classpathentry kind="src" path="db/src/test/java"/>
+	<classpathentry kind="src" path="semantic/src/main/java"/>
+	<classpathentry kind="src" path="semantic/src/test/java"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

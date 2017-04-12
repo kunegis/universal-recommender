@@ -1,0 +1,313 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+
+\title{A Practical Guide to the Universal Recommender}
+
+\author{ Jérôme Kunegis }
+
+\maketitle
+
+\begin{abstract}
+This is a short how-to guide for the Universal
+Recommender~\cite{kunegis:universal-recommender}, a Java programming
+library providing data structures and algorithms for recommender
+systems. 
+The Universal Recommender supports link prediction, rating prediction
+and recommendation in arbitrary multirelational networks. 
+This document gives a brief overview of its main functions, and is
+supplemented by the actual program library documentation. 
+\end{abstract}
+
+\section{Introduction}
+The Universal Recommender is a programming library that implements data
+structures and algorithms for recommender systems.  The basic ideas
+behind the Universal Recommender are described in the 2009 white paper
+\emph{The Universal Recommender}~\cite{kunegis:universal-recommender}.
+
+The Universal Recommender is a programming library written in Java.  It
+can be natively imported using the Maven framework.  The Universal
+Recommender is available as the package \texttt{de.dailab.recommender}.
+This guide is intended to provide a hands-on introduction to using the
+Universal Recommender.  It should be used in conjunction with the
+Javadoc documentation.  For readability, this guide does not mention the
+package in which classes are located--they can be inferred easily. 
+
+The guide begins with a definition of the term \emph{recommender}.
+Then, key concepts are described in increasing order of complexity:
+datasets, predictors, recommenders and evaluation methods.  
+We provide a glossary of recommendation terms at the end.
+
+\section{Motivation:  What is a Recommender?}
+A recommender is an algorithm that, given a node of a network as input,
+returns a ranked list of other nodes of the same network.  The networks
+in question typically contain nodes such as users, items and features
+which are connected rating, friendship and other links.  
+
+Recommenders are typically classified by the input and output they take
+(e.g. user-user or user-item recommenders), by the specific algorithm
+used (e.g. neighborhood-based or latent) and by the type of intermediary
+data that is computed (e.g. memory-based or model-based).
+The Universal Recommender can be used to implement any kind of
+recommendation algorithm for any multirelational dataset, as explained
+in the next section. 
+
+\section{Datasets}
+To use a recommender, a dataset is needed.  In the Universal
+Recommender, datasets are represented by the class \texttt{Dataset}.   
+
+A dataset is a network of entities connected by relationships.  Both
+entities and relationships have a type; these are called entity types
+and relationship types.
+Additionally, entities can have metadata attached to them, and
+relationships can have weights. 
+
+The classes \texttt{EntityType} and \texttt{RelationshipType} represent
+entity and relationship types, respectively.  Both classes simply
+contain a string.
+
+In a \texttt{Dataset}, the entities and relationships are grouped by
+their types.  A \texttt{Dataset} thus contains several
+\texttt{EntitySet}s and \texttt{RelationshipSet}s.  
+
+In an \texttt{EntitySet}, the entities of a given type are represented
+by contiguous integer IDs starting at zero.  Single entities can be
+represented by the class \texttt{Entity}, which contains an
+\texttt{EntityType} and an integer ID. 
+
+In a \texttt{RelationshipSet}, all relationships of a given type are
+represented by a matrix.  Each relationship set specifies which entity
+types are connected.  If these are the same, the relationship type is
+unipartite and the matrix is square.  If they are different, the
+relationship type is bipartite and the matrix is rectangular.  For
+unipartite relationship types, there is a distinction between the symmetric
+and asymmetric case.  In practice, the symmetric case is very rare. 
+Relationships can also have weights.  Each relationship set specifies
+the range of possible weights:  unweighted, positively weighted (only
+positive weights), signed (positive and negative weights) and weighted
+(any weights).  The difference between the signed and weighted case is
+subtle:  In the signed case, the weight value zero has the specific
+meaning of ``neutral'', whereas this is not the case for weighted
+relationship types.  A signed relationship type would for instance be
+the friend/foe relations in the Slashdot
+Zoo~\cite{kunegis:slashdot-zoo}.  A weighted relationship type would be
+the five star rating scale of Netflix~\cite{b520}.
+
+Each \texttt{RelationshipSet} contains an adjacency or biadjacency
+matrix that includes all relationships of the given type.  
+Matrices are represented by the interface \texttt{Matrix}.  All
+implementations of it are sparse, memory-held matrices.
+No third-party matrix library is used.
+
+To get started quickly, specific datasets can be tried out.  The
+following subsections describe the various ways of loading datasets into
+memory. 
+
+\subsection{Semantic Stores}
+The Universal Recommender supports reading datasets from so-called
+\emph{semantic stores}.  A semantic store is a repository of semantic
+triples that can be queried using the language \emph{SPARQL}.  
+
+To load a dataset from a semantic store, use the class
+\texttt{SemanticStoreDataset}.  This class extends \texttt{Dataset} and reads
+out data from a semantic store in its constructor.  
+To configure the location of the semantic store, pass a
+\texttt{Sparqlable} object.  The preferred implementation of this
+interface is \texttt{SemanticStoreConnection2}, and is configured via
+its constructor, which takes a URL and a username/password pair. 
+
+\subsection{Databases}
+The package \texttt{de.dailab.recommender.db} can be used to load a
+dataset from a database.  In that case, each entity type and each
+relationship type has its own table.  The configuration and loading is
+done through the class \texttt{DbDataset}.  
+
+\subsection{The Graph Store}
+The Graph Store is a collection of network datasets located on the
+server \texttt{munin} that can be used
+with the Universal Recommender.  The Graph Store contains two types of
+datasets:  semantic datasets and unirelational datasets.  All Graph
+Store datasets can be loaded using the classes in the two following
+packages: 
+\begin{itemize}
+\item \texttt{de.dailab.recommender.graph.datasets}
+\item \texttt{de.dailab.recommender.graph.unirelationaldatasets}
+\end{itemize}
+
+To load the datasets, the directory
+\texttt{corpus@munin:/data/corpora/graph/} must be mounted locally and
+the variable \texttt{\$GRAPH\_DIR} must be set to
+this directory.  Instead of mounting the directory, it could also be
+copied from \texttt{munin}, if enough disk place space is available. 
+
+\section{Prediction}
+Prediction of links in a dataset is one of the main uses of the
+Universal Recommender.  A predictor is an algorithm that takes a pair of
+entities and returns a floating point value describing the proximity or
+similarity of the two entities.  The exact meaning of the
+prediction score varies from one prediction algorithm to another.
+
+The interface \texttt{Predictor} denotes individual prediction
+algorithms.  To compute predictions in a given dataset, the method
+\texttt{Predictor.build(Dataset)} returns a \texttt{PredictorModel}.  A
+predictor model can then be used to compute prediction for that specific
+dataset.  \texttt{PredictorModel} is an interface that has a method
+\texttt{predict()} which takes two entities and returns a prediction
+
+The interface \texttt{Predictor} does not specify the meaning of
+scores, and each predictor will typically document the possible returned
+scores.  The only requirement on scores are:
+\begin{itemize}
+\item Higher scores denote higher proximity or similarity
+\item A score of zero is neutral
+\end{itemize}
+In particular, no typical order of magnitude is specified, meaning that
+some predictors return very small or very large values; this has to be
+supported by callers.  Also, there is no upper limit in most predictors,
+meaning that scores cannot be interpreted as percentages.
+
+\section{Recommendation}
+In the task of recommendation, the input is an entity (the source), and
+the output is a list of scored entities.  
+
+The returned entities are returned as an iterator over
+\texttt{Recommendation} object.  This is to make it possible for
+implementations to make only the computations needed for the number of
+required entities, and also allows pagination.  A
+\texttt{Recommendation} simply contains an entity and a score, which
+can be seen as a prediction value if the recommender has an underlying
+predictor. 
+
+The interface \texttt{Recommender} works analogously to
+\texttt{Predictor}; it has a \texttt{build(Dataset)} method which
+returns a \texttt{RecommenderModel}.  A recommender model can then be
+used to compute recommendation with the \texttt{recommend()} methods.
+
+There are two basic types of recommenders:  path recommenders and latent
+recommenders.  Path recommenders work by following paths in the network;
+latent recommenders build a latent model of the dataset and use fast
+vector similarity measures for prediction. 
+
+\subsection{Path Recommenders}
+Path recommenders are a class of recommendation algorithms that perform
+a usually breadth-first search in the network to find entities.  The
+default path recommender is given by \texttt{PathRecommender()}.  Path
+recommenders can be configured by \texttt{Path} objects, which specify
+an algorithm for search through a network.  The default path is
+\texttt{AllPath2}, which performs a breadth-first search in the network
+and returns weighted sums of paths.  Using \texttt{RelationshipPath},
+\texttt{CompoundPath} and \texttt{ParallelPath}, paths can be specified
+that follow exact relationship type sequences.
+
+The \texttt{build()} method of path recommenders does not compute
+anything; all computation is done in \texttt{recommend()}. 
+
+The runtime and memory usage of path recommenders is usually not
+predictable, as it depends on network topology.  Path recommenders are
+not considered scalable to large datasets.  
+
+\subsection{Latent Recommenders}
+Latent recommenders compute a latent model of the dataset, and use fast
+similarity measures in this model to compute recommendations.  The
+default latent recommender is given by \texttt{LatentRecommender}. 
+Latent recommenders are intended to be scalable to large network sizes. 
+
+The default and simplest latent recommender is based on the eigenvalue
+decomposition of the network's adjacency matrix. 
+
+Latent recommenders correspond compute a matrix decomposition in the
+general sense~\cite{kunegis:spectral-transformation}.  The decomposed
+matrix is the adjacency matrix, the 
+Laplacian, or any other characteristic graph matrix. 
+Matrix decompositions are usually the eigenvalue of singular value
+decompositions, but some others are such as ``mask decomposition'' and
+generalized Laplacians are implemented.  
+In all cases, the result are two eigenvector matrices $U$ and $V$, and a
+eigenvalues $\Lambda$.  The terms \emph{eigenvector} and
+\emph{eigenvalue} are to be understood in a general sense here. 
+
+By construction, latent recommenders are able to compute predictions,
+and the returned recommendation scores are exactly the prediction
+values. 
+
+To compute a prediction for the entity pair $(i,j)$, the three vectors
+$U_i$, $V_j$ and $\mathrm{diag(\lambda)}$ are combined.  The type of
+combination can be adjusted and is represented by the interface
+\texttt{Similarity}.  Examples are the dot product, the inverted
+Euclidean distance or the ``Gaussian'' function.  It is also possible to
+apply spectral transformations to $\Lambda$, using the class
+\texttt{SpectralTransformation}. 
+
+\section{Evaluation}
+By \emph{evaluation}, we understand the computation of several
+predictors and recommenders on a specific dataset with the goal of
+comparing their performances at these tasks.  Evaluations are done for
+recommendation research, for testing the Universal Recommender, and for testing the
+consistency and plausibility of new datasets. 
+
+The unit test \texttt{TestEvaluation} performs prediction and
+recommendation evaluations on a set of representative datasets
+from the Graph Store.  The classes \texttt{PredictorEvaluation} and
+\texttt{RecommenderEvaluation} can be used to perform an evaluation of the
+default predictors and recommenders on any dataset. 
+
+Both types of evaluations are implemented by splitting the dataset's
+relationships into a training and a test set.  The training set is then
+used to compute predictions or recommendations, which are then compared
+to the the relationships in the test set.  Evaluation results are given
+in various error measures for prediction, and in various precision
+variants for recommendation. 
+
+\section{Glossary}
+Several technical terms are used throughout the Java code and in
+associated literature.  Several of these terms can be confusing, and it
+is important to distinguish them.  The following is a glossary of such terms:
+
+\begin{description}
+
+\item[Dataset]
+A network of entities connected by relationships. 
+
+\item[Entity]
+A node in a dataset.  An entity has an entity type and an integer ID.  
+
+\item[Entity type]
+The type of an entity in a dataset.  Entity types are represented by
+strings.  Typical examples are users and movies. 
+
+\item[Predictor] 
+An algorithm that computes a similarity or proximity value given two
+entities in a dataset.  Predictors have to be ``compiled'' into a predictor
+model to compute predictions. 
+
+\item[Predictor model]
+A model that was built using a given predictor and dataset.   A
+predictor model can compute predictions given two entities. 
+
+\item[Recommender]
+An algorithm that computes a list of scored entities when given a
+weighted list of entities (the sources).  A recommender has to be
+``compiled'' into a recommender model to compute recommendations. 
+
+\item[Recommender model]
+A model that was built using a given recommender and dataset.  A
+recommender model can compute recommendations when given a weighted list
+of entities. 
+
+\item[Relationship]
+A relationship connects two entities in a dataset.  A relationship can be optionally
+weighted, and has a specific relationship type. 
+
+\item[Relationship type]
+The type of a relationship.  Relationship types are represented by
+strings.  Typical examples are friendship, ratings and a hyperlink. 
+
+\end{description}
+
+\bibliographystyle{acm} 
+\bibliography{kunegis}
+
+\end{document}
+

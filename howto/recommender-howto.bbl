@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{b520}
+{\sc Bennett, J., and Lanning, S.}
+\newblock The {Netflix} prize.
+\newblock In {\em Proc. KDD Cup\/} (2007), pp.~3--6.
+
+\bibitem{kunegis:spectral-transformation}
+{\sc Kunegis, J., and Lommatzsch, A.}
+\newblock Learning spectral graph transformations for link prediction.
+\newblock In {\em Proc. Int. Conf. on Machine Learning\/} (2009), pp.~561--568.
+
+\bibitem{kunegis:slashdot-zoo}
+{\sc Kunegis, J., Lommatzsch, A., and Bauckhage, C.}
+\newblock The {Slashdot Zoo}: Mining a social network with negative edges.
+\newblock In {\em Proc. Int. World Wide Web Conf.\/} (2009), pp.~741--750.
+
+\bibitem{kunegis:universal-recommender}
+{\sc Kunegis, J., Said, A., and Umbrath, W.}
+\newblock The {Universal Recommender}.
+\newblock White paper, 2009.
+
+\end{thebibliography}

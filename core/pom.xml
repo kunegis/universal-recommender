@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>de.dailab</groupId>
+    <artifactId>recommender</artifactId>
+    <version>0.3.0</version>
+  </parent>
+
+  <groupId>de.dailab.recommender</groupId>
+  <artifactId>core</artifactId>
+  <name>recommender-core</name>
+
+  <description>
+	Recommender core
+  </description>
+
+  <dependencies>
+
+	<dependency>
+      		<groupId>commons-collections</groupId>
+      		<artifactId>commons-collections</artifactId>
+      		<version>3.2.1</version> 
+   	</dependency>
+
+    	<dependency>
+      		<groupId>org.apache.commons</groupId>
+      		<artifactId>commons-math</artifactId>
+      		<version>2.0</version> 
+   	</dependency>
+
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.13</version>
+	</dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.4</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+</project>

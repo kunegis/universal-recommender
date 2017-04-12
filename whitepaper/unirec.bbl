@@ -1,0 +1,136 @@
+\begin{thebibliography}{10}
+
+\bibitem{b335}
+{\sc Adomavicius, G., Sankaranarayanan, R., Sen, S., and Tuzhilin, A.}
+\newblock Incorporating contextual information in recommender systems using a
+  multidimensional approach.
+\newblock {\em ACM Trans. Information Systems 23}, 1 (2005), 103--145.
+
+\bibitem{b30}
+{\sc Basilico, J., and Hofmann, T.}
+\newblock Unifying collaborative and content-based filtering.
+\newblock In {\em Proc. Int. Conf. on Machine Learning\/} (2004).
+
+\bibitem{b332}
+{\sc Bizer, C., Cyganiak, R., Auer, S., and Kobilarov, G.}
+\newblock {DBpedia.org}--querying {W}ikipedia like a database.
+\newblock In {\em Proc. Int. World Wide Web Conf.\/} (2007).
+
+\bibitem{b358}
+{\sc Blei, D., Ng, A., Jordan, M., and Lafferty, J.}
+\newblock Latent {D}irichlet allocation.
+\newblock {\em Machine Learning Research 3\/} (2003), 993--1022.
+
+\bibitem{b133}
+{\sc Brin, S., and Page, L.}
+\newblock The anatomy of a large-scale hypertextual web search engine.
+\newblock {\em Computer Networks and ISDN Systems 30}, 1--7 (1998), 107--117.
+
+\bibitem{b7}
+{\sc Goldberg, K., Roeder, T., Gupta, D., and Perkins, C.}
+\newblock {E}igentaste: A constant time collaborative filtering algorithm.
+\newblock {\em Information Retrieval 4}, 2 (2001), 133--151.
+
+\bibitem{b325}
+{\sc Guha, R., Kumar, R., Raghavan, P., and Tomkins, A.}
+\newblock Propagation of trust and distrust.
+\newblock In {\em Proc. Int. World Wide Web Conf.\/} (2004), pp.~403--412.
+
+\bibitem{b289}
+{\sc Gärtner, T., Le, Q.~V., and Smola, A.~J.}
+\newblock A short tour of kernel methods for graphs.
+\newblock Tech. rep., 2006.
+
+\bibitem{b306}
+{\sc Ham, J., Lee, D.~D., Mika, S., and Schölkopf, B.}
+\newblock A kernel view of the dimensionality reduction of manifolds.
+\newblock In {\em Proc. Int. Conf. on Machine Learning\/} (2004), p.~47.
+
+\bibitem{b347}
+{\sc Hofmann, T.}
+\newblock Probabilistic latent semantic analysis.
+\newblock In {\em Proc. Conf. on Uncertainty in Artificial Intelligence\/}
+  (1999), pp.~289--296.
+
+\bibitem{b31}
+{\sc Hofmann, T.}
+\newblock Collaborative filtering via {G}aussian probabilistic latent semantic
+  analysis.
+\newblock In {\em Proc. Int. Conf. on Research and Development in Information
+  Retrieval\/} (2003), pp.~259--266.
+
+\bibitem{b34}
+{\sc Hofmann, T.}
+\newblock Latent semantic models for collaborative filtering.
+\newblock {\em ACM Trans. Information Systems 22}, 1 (2004), 89--115.
+
+\bibitem{b263}
+{\sc Kandola, J., Shawe-Taylor, J., and Cristianini, N.}
+\newblock Learning semantic similarity.
+\newblock In {\em Advances in Neural Information Processing Systems\/} (2002),
+  pp.~657--664.
+
+\bibitem{kunegis:spectral-transformation}
+{\sc Kunegis, J., and Lommatzsch, A.}
+\newblock Learning spectral graph transformations for link prediction.
+\newblock In {\em Proc. Int. Conf. on Machine Learning\/} (2009), pp.~561--568.
+
+\bibitem{kunegis:slashdot-zoo}
+{\sc Kunegis, J., Lommatzsch, A., and Bauckhage, C.}
+\newblock The {Slashdot Zoo}: Mining a social network with negative edges.
+\newblock In {\em Proc. Int. World Wide Web Conf.\/} (2009), pp.~741--750.
+
+\bibitem{b393}
+{\sc Lee, D.~D., and Seung, S.~H.}
+\newblock Algorithms for non-negative matrix factorization.
+\newblock In {\em Advances in Neural Information Processing Systems\/} (2000),
+  pp.~556--562.
+
+\bibitem{b430}
+{\sc {Members of the {O}pen {IPTV} {F}orum}}.
+\newblock {O}pen {IPTV} {F}orum, 2009.
+\newblock Whitepaper.
+
+\bibitem{b413}
+{\sc Newman, M. E.~J.}
+\newblock Finding community structure in networks using the eigenvectors of
+  matrices.
+\newblock {\em Phys. Rev. E 74\/} (2006).
+
+\bibitem{b426}
+{\sc Soboroff, I.~M., and Nicholas, C.~K.}
+\newblock Combining content and collaboration in text filtering.
+\newblock In {\em Proc. Workshop on Machine Learning for Information
+  Filtering\/} (1999), pp.~86--91.
+
+\bibitem{b178}
+{\sc Srebro, N., and Jaakkola, T.}
+\newblock Weighted low-rank approximations.
+\newblock In {\em Proc. Int. Conf. on Machine Learning\/} (2003), pp.~720--727.
+
+\bibitem{b197}
+{\sc Srebro, N., Rennie, J. D.~M., and Jaakola, T.~S.}
+\newblock Maximum-margin matrix factorization.
+\newblock In {\em Advances in Neural Information Processing Systems\/} (2005),
+  pp.~1329--1336.
+
+\bibitem{b333}
+{\sc Suchanek, F., Kasneci, G., and Weikum, G.}
+\newblock {YAGO}--a core of semantic knowledge.
+\newblock In {\em Proc. Int. World Wide Web Conf.\/} (2007), pp.~697--706.
+
+\bibitem{b179}
+{\sc Zhang, S., Wang, W., Ford, J., Makedon, F., and Pearlman, J.}
+\newblock Using singular value decomposition approximation for collaborative
+  filtering.
+\newblock In {\em Proc. Int. Conf. on E-Commerce Technology\/} (2005),
+  pp.~257--264.
+
+\bibitem{b379}
+{\sc Zhu, S., Yu, K., Chi, Y., and Gong, Y.}
+\newblock Combining content and link for classification using matrix
+  factorization.
+\newblock In {\em Proc. Int. Conf. on Research and Development in Information
+  Retrieval\/} (2007), pp.~487--494.
+
+\end{thebibliography}

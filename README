@@ -1,0 +1,37 @@
+The Universal Recommender
+=========================
+
+This is a historical software package, meant as documentation, and not
+to be run.  It is the Universal Recommender, a software library written
+in the Java programming language, implementing many recommendation
+algorithms and related methods. 
+
+The Universal Recommender was written by me (Jérôme Kunegis) at the
+Technische Universität Berlin in the timeframe 2009-2010, and was used
+to implement evaluation for several academic papers. 
+
+The material in this directory was aggregated in 2017 and comprises:
+
+* README; this file, written in 2017 to document the package
+* howto/; an unused draft of a howto document in PDF format
+* whitepaper/; a high-level overview, as a PDF document, published at
+  the time on arXiv
+* COPYING; The GPLv3, applied to this project in 2017.  The project was
+  proviously unpublished. 
+* Everything else is part of the original code
+
+The code is provided as is, without any guarantees.  In particular, it
+has not been executed since 2010, and is written in the Java programming
+language.  Beware that is contains many configuration files such as
+'pom.xml' and '.project' which are highly specific to the GUI used to
+write the software (Eclipse), and are unlikely to work nowadays. 
+
+The Universal Recommender is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+The Universal Recommender is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.

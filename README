@@ -1,7 +1,7 @@
 The Universal Recommender
 =========================
 
-This is a historical software package, meant as documentation, and not
+This is an historical software package, meant as documentation, and not
 to be run.  It is the Universal Recommender, a software library written
 in the Java programming language, implementing many recommendation
 algorithms and related methods. 

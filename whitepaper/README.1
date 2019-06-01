@@ -1,0 +1,185 @@
+Der '''Universal Recommender''' (UR) ist eine Komponente, die am [[CC IRML]] für Entwicklung und Forschung an Empfehlungssystemen verwendet wird.  
+Der Universal Recommender entsteht aus der Forschungsarbeit von [[Jérôme]], und wird in Projekten wie [[PIA]], [[Connected Living]], [[WebTV Recommender]], [[UCPM]], usw. verwendet.  Der Vorgänger des Universal Recommender ist das [[CC-IRML:Community|Community-Modul]].
+
+Die Hauptfeatures des Universal Recommender sind:
+# Unterstützung von komplexen semantischen Empfehlungsmodellen
+# Maschinelles Lernen von Empfehlungsalgorithmen
+
+Es wird das [[Recommender-Glossar]] verwendet.
+
+For a high-level description, see the white paper ''[[The Universal Recommender]]''.
+
+== Summary ==
+* Persons:  [[Jérôme]]
+* Documents:  /home/cc/CC IRML/Komponenten/Universal Recommender/ | \\dafis\cc\CC IRML\Komponenten\Universal Recommender
+* Source:  http://cvs/svn/IRML/trunk/recommender/
+* Deployments:  http://repositories.dai-lab.de/nexus/content/repositories/dai-releases/de/dailab/recommender/
+* Programming language:  Java 1.6
+* Java package:  de.dailab.recommender
+* Site:  http://repositories.dai-labor.de/sites/recommender/
+* Javadoc:  http://repositories.dai-labor.de/sites/recommender/apidocs/
+
+==Goals==
+The Universal Recommender work has two main goals:
+# Support a semantic data model
+#* The data model supported must be semantic and not tied to any recommendation application.
+#* It should support at least:  any entity-relationship models, directed and signed edges.
+#* Optional:  Hyperedges (tensor, high-order recommendation, …), numerical attributes.
+# Machine learning of recommendation functions
+#* Kernels used must be learned fully automatically (see [[Spectral transformation]])
+#* If relations are tagged semantically, relative weights must be learned automatically.
+
+== How-to ==
+A short "how-to" type introduction was written:
+* http://lehre/svn/latex/paper/recommender_howto/
+* http://lehre/svn/latex/paper/recommender_howto/recommender-howto.pdf
+
+==Submodules==
+Submodules correspond to subpackages of de.dailab.recommender, except for ''core'', which contains all subpackages that don't have their own submodule and ''lab'', which is the incubator for new packages.  
+
+'''General submodules'''
+* core
+:: Interfaces and simple implementations
+* lab
+:: Incubator module
+
+'''Dataset implementations'''
+* db
+:: Access to databases
+* semantic
+:: Access to the Semantic Store
+* graph
+:: Acess to the Graph Store
+
+==Versions==
+Releases of the Universal Recommender are deployed on the [http://repositories.dai-labor.de/nexus/content/repositories/dai-releases/de/dailab/recommender/ DAI Maven repository] and branched in [http://cvs/svn/IRML/branches/recommender/ SVN].
+
+For old and snapshot javadocs and sites:  append "-$VERSION" to the "recommender" in the javadoc and site URL.
+
+Stable versions:
+* 0.0.4 – Support for the Semantic Store
+* 0.1.0 – replace MTJ by custom matrices, more recommenders:  direct, partial, etc… better WebTV configuration
+* 0.1.2 – evaluation framework; lots of cleanups.
+* [http://repositories.dai-labor.de/sites/recommender-0.1.6/ 0.1.6] – semantic store interface; etc.
+* [http://repositories.dai-labor.de/sites/recommender-0.2.0/ 0.2.0]
+* [http://repositories.dai-labor.de/sites/recommender-0.2.2/ 0.2.2] – more semantic support; updating of latent models; upgrade to SemanticStore-0.0.6
+* [http://repositories.dai-labor.de/sites/recommender-0.2.4/ 0.2.4] – all-new path recommender; upgrade to SemanticStore-0.0.8
+* 0.2.6 – Special version for UCPM
+* [http://repositories.dai-labor.de/sites/recommender-0.3.0/ 0.3.0] – last version in internal SVN; fixes and cleanups
+
+==Anwendungen==
+Folgende Anwendungen verwenden den Universal Recommender.
+
+'''Current projects'''
+* [[WebTV Recommender]] ([[Torsten]], SNAPSHOT)
+** Das erste Projekt, welches den Universal Recommender verwendet
+* [[UCPM]] ([[Till]], SNAPSHOT)
+** Doesn't have a recommender, but uses the Universal Recommender for profile analysis
+** Used with the music/movie/… dataset
+** Uses the radar
+* Tùng's diploma thesis ([[Till]], SNAPSHOT)
+** Applies the recommender to a DAI-knowledge ontology (as part of the whole work)
+
+'''Planned projects'''
+* [[Learning Semantic Recommenders]]
+** Das Forschungsprojekt zum Universal Recommender
+* [[PIA]]
+** Entitäten: Dokumenten, Tags, Users, Queries, Query terms.
+** Use cases:  Query reforming, finding similar documents, recommending documents on the start page.
+* [[CC-IRML:iZ Connected|Connected Living]]
+** Der Universal Recommender soll in diversen iZ Connected-Projekten verwendet werden.
+* [[CC-IRML:Smart Senior]]
+** TP5:  ähnlich zum WebTV-Recommender
+* [[UR-App]]
+** an EU project
+* SPA:  [[Stephan Spiegel]] schreibt eine Diplomarbeit aus, in der mit dem Universal Recommender ein Location-aware Recommender für SPA geschrieben werden soll.
+* [[Smart Media Assistant]]
+
+==Matrix==
+Due to the lack of adequate linear matrix packages in Java™, the Universal Recommder provides its own implementation of sparse matrices.  
+
+The Universal Recommender used to depend on MTJ, but that was scrapped after it was found that there is no generic way to iterate over a row or column of a sparse matrix.
+
+In general, a matrix package used by the Universal Recommender should have the following features.
+
+Features that some Java™ matrix packages support:
+* Sparse matrices
+
+Features that no Java™ matrix packages support:
+* Support for various matrix data types:  binary, 8-bit integers, 16-bit integers, floats.
+*: Only double matrices are implemented
+* Support for various index data types:  16-bit integers, 32-bit integers, including matrices with different row and column index types
+*: Only 32-bit integers are supported (Java™ type ''int'').  This is needed in sparse representations. 
+* Support for matrices with fast iteration over single rows and columns
+*: Most sparse representations only support fast iteration from one dimension.
+* Support for sparse eigenvalue and singular value decomposition
+*: Only the Fortran package Arpack exists.
+
+== Data Sources == 
+The Universal supports multiple data source formats.
+
+=== Databases ===
+The Universal Recommenders can access databases directly using the ''db'' module.
+
+=== Semantic Store ===
+For a more high-level interface, the [[Semantic Store]] is used as an interface in the module ''semantic''.
+
+=== Graph Store ===
+The semantic network datasets of the [[Graph Store]] can be used.  Support for graph datasets is in the ''graph'' module.
+
+== Development information == 
+* Latest development site:  http://repositories.dai-labor.de/sites/recommender-development/
+* Latest development javadoc:  http://repositories.dai-labor.de/sites/recommender-development/apidocs/
+* Settings files the Eclipse version installed on Jérôme's workstation are stored in SVN.
+* Build management:  Maven 2
+* Task management:  Bugzilla on the server ''cvs'', Project »Recommender«, http://cvs.dai-labor.de/bugzilla3/ (Accounts managed by [[Stefan Schier]])
+
+=== Deployment ===
+Stable versions (a.k.a. releases) are deployed on the dai-releases repository using the command <code>mvn deploy</code>. 
+
+The local ~/.m2/settings.xml should be as described in [[Maven:DAI-Repository]].
+
+Snapshot deployments are done irregularly and are only used by agreement.
+
+=== Maven Site Deployment === 
+The recommender has a Maven site at http://repositories.dai-labor.de/sites/recommender/, which is a symlink to the latest stable release.  Individual versions are at http://repositories.dai-labor.de/sites/recommender-$VERSION/.  The latest development version is at http://repositories.dai-labor.de/sites/recommender-development/.
+
+To deploy the site use <code>mvn site:deploy</code>.  The user to use (maven) is hardcoded in the main recommender pom.xml file.  The password is mavenpw and has to be entered more than once during deployment.  After each stable site deploy, the recommender/ symlink on the server is updated to the new version.
+
+To build the site locally without deploying, use <code>mvn site:site</code>.
+
+The site includes the Javadoc under ''Project Reports''.
+
+=== Code annotations (TODO, XXX, etc.) ===
+* TODO is used for bugs that are also in Bugzilla
+* XXX is used for what is not in Bugzilla, i.e. minor stuff
+
+=== Dependencies ===
+
+Inside each package, the dependencies between subpackages do not contain cycles.  
+
+A class cannot depend on a class in a struct "superpackage" of it.  I.e. a.b.c.Alpha must not use a.b.Beta.
+
+Violating these rules at the top level (i.e. submodules of the recommender) will produce errors while building with maven but not in Eclipse.
+
+=== To do from time to time ===
+* Remove deprecated classes
+* Integrate XXX comments into Bugzilla
+
+=== Checklist:  update version ===
+* Change version number in all POMs to the next stable number
+* clean
+* test
+* install
+* deploy
+* commit
+* svn cp to branches/
+* site:site site:deploy
+* link site to new version
+* change version number to next SNAPSHOT version
+* clean
+* install
+* commit
+* site:site site:deploy
+* link site to new devel version
+* mail to interested persons

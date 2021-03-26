@@ -15,9 +15,9 @@ The material in this directory was aggregated in 2017 and comprises:
 * README; this file, written in 2017 to document the package
 * howto/; an unused draft of a howto document in PDF format
 * whitepaper/; a high-level overview, as a PDF document, published at
-  the time on arXiv
+  the time on arXiv as a whitepaper
 * COPYING; The GPLv3, applied to this project in 2017.  The project was
-  proviously unpublished. 
+  previously unpublished. 
 * Everything else is part of the original code
 
 The code is provided as is, without any guarantees.  In particular, it

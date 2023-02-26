@@ -22,7 +22,7 @@ The material in this directory was aggregated in 2017 and comprises:
 
 The code is provided as is, without any guarantees.  In particular, it
 has not been executed since 2010, and is written in the Java programming
-language.  Beware that is contains many configuration files such as
+language.  Beware that it contains many configuration files such as
 'pom.xml' and '.project' which are highly specific to the GUI used to
 write the software (Eclipse), and are unlikely to work nowadays. 
 
